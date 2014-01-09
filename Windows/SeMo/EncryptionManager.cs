@@ -40,5 +40,23 @@ namespace SeMo
                 return (T) ser.Deserialize(ms);
             }
         }
+
+        public string TripleAesEncrypt(string data, string key, string iv)
+        {
+            using (var encryptor = new RijndaelManaged())
+            {
+
+                var bytes = key.ToBytesFromBase64String();
+                var reverse = iv.Reverse();
+                var encoder = new UTF8Encoding();
+                var generator = new Rfc2898DeriveBytes(iv, encoder.GetBytes(reverse.ToString()));
+                
+                for (int i = 0; i < 3; i++)
+                {
+                    // Encrypt 3 times
+                }
+            }
+            throw new NotImplementedException();
+        }
     }
 }
