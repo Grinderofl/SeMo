@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using HashLib;
+using Ninject;
 
 namespace SeMo
 {
@@ -14,11 +14,12 @@ namespace SeMo
     /// </summary>
     public partial class App : Application
     {
-        private IHash _hash;
+        private readonly IKernel _kernel;
 
         public App()
         {
-            _hash = HashFactory.Crypto.SHA3.CreateKeccak512();
+            _kernel = new StandardKernel();
+            Injection.CreateBindings(_kernel);
         }
     }
 }

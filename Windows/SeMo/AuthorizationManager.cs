@@ -1,39 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using HashLib;
 
 namespace SeMo
 {
     public class AuthorizationManager
     {
         private readonly DistributionManager _distributionManager;
-        private readonly IHash _hash;
+        private readonly HashAlgorithm _hash;
 
-        public AuthorizationManager(DistributionManager distributionManager, IHash hash)
+        public AuthorizationManager(DistributionManager distributionManager, HashAlgorithm hash)
         {
             _distributionManager = distributionManager;
             _hash = hash;
         }
 
-        public void Register(string username, string password)
+        public DataInfo Register(string username, string password)
         {
             var info = new PeerInfo()
             {
-                Hash = _hash.ComputeString(username + password).ToString()
+                Hash = BitConverter.ToString(_hash.ComputeHash(Encoding.UTF8.GetBytes(username + password)))
             };
             _distributionManager.DistributeAuthorizationData(info);
-        }
-    }
-
-    public class DistributionManager
-    {
-        public void DistributeAuthorizationData(PeerInfo info)
-        {
             throw new NotImplementedException();
         }
+
+        public DataInfo Login(string username, string password)
+        {
+            var hash = BitConverter.ToString(_hash.ComputeHash(Encoding.UTF8.GetBytes(username + password)));
+            var data = _distributionManager.RetrieveAuthorizationData(hash);
+            throw new NotImplementedException();
+        }
+
     }
 }

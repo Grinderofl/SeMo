@@ -34,8 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HashLib">
-      <HintPath>..\packages\HashLib.2.0.1\lib\net40\HashLib.dll</HintPath>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="SHA3">
+      <HintPath>..\packages\SHA3.0.9.2\lib\net40\SHA3.dll</HintPath>
+    </Reference>
+    <Reference Include="SHA3Managed">
+      <HintPath>..\packages\SHA3.0.9.2\lib\net40\SHA3Managed.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -58,9 +64,11 @@
     </ApplicationDefinition>
     <Compile Include="AuthorizationManager.cs" />
     <Compile Include="CommunicationManager.cs" />
+    <Compile Include="DistributionManager.cs" />
     <Compile Include="EncryptionManager.cs" />
     <Compile Include="Extensions\ByteExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Injection.cs" />
     <Compile Include="SafeStorage.cs" />
     <Compile Include="StorageController.cs" />
     <Page Include="MainWindow.xaml">
